@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "2rem",
   },
   colorText: {
-    color: "#5AFF3D",
+    color: "#ff7f50",
   },
   container: {
     textAlign: "center",
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "4.5rem",
   },
   goDown: {
-    color: "#5AFF3D",
+    color: "#ff7f50",
     fontSize: "4rem",
   },
 }));
@@ -48,12 +48,13 @@ export default function Header() {
   useEffect(() => {
     setChecked(true);
   }, []);
+
   return (
     <div className={classes.root} id='header'>
       <AppBar className={classes.appbar} elevation={0}>
         <Toolbar className={classes.appbarWrapper}>
           <h1 className={classes.appbarTitle}>
-            Travel<span className={classes.colorText}>Easy.</span>
+            Travel<span className={classes.colorText}>Safe.</span>
           </h1>
           <IconButton>
             <SortIcon className={classes.icon} />
@@ -69,7 +70,7 @@ export default function Header() {
         <div className={classes.container}>
           <h1 className={classes.title}>
             Welcome to <br />
-            Travel<span className={classes.colorText}>Easy.</span>
+            Travel<span className={classes.colorText}>Safe.</span>
           </h1>
           <Scroll to='place-to-visit' smooth={true}>
             <IconButton>

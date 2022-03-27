@@ -18,24 +18,6 @@ import Select from "react-select";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant='body2'
-      color='text.secondary'
-      align='center'
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color='inherit' href='https://mui.com/'>
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
 const theme = createTheme();
 
 export default function SignUp() {
@@ -59,6 +41,7 @@ export default function SignUp() {
     setPassport(value.label);
   };
 
+  // sends a request to the server to add the user with information submitted.
   const addUser = () => {
     Axios.post("http://localhost:3001/create", {
       email: email,
@@ -224,8 +207,6 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );

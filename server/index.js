@@ -6,13 +6,16 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 
+// connect to local database
 const db = mysql.createConnection({
   user: "root",
   host: "127.0.0.1",
   password: "password",
   database: "covidtravel_db",
+  multipleStatements: true,
 });
 
+// insert a user into the database users table
 app.post("/create", (req, res) => {
   const name = req.body.name;
   const lastName = req.body.lastName;
@@ -35,6 +38,7 @@ app.post("/create", (req, res) => {
   );
 });
 
+// select all users in the database.
 app.get("/users", (req, res) => {
   db.query("SELECT * FROM covidtravel_db.users", (err, result) => {
     if (err) {
@@ -45,6 +49,21 @@ app.get("/users", (req, res) => {
   });
 });
 
+// delete all users in the database and reset the increment counter.
+app.get("/clear-users", (req, res) => {
+  db.query(
+    "TRUNCATE TABLE covidtravel_db.users; ALTER TABLE covidtravel_db.users AUTO_INCREMENT = 0; DELETE FROM covidtravel_db.users",
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+//listen port for the server.
 app.listen(3001, () => {
   console.log("the server is running on 3001");
 });

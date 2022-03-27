@@ -6,6 +6,7 @@ import useWindowPosition from "../hook/useWindowPosition";
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "100vh",
+    marginTop: 500,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

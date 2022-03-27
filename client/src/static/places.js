@@ -11,7 +11,7 @@ const places = [
     title: "Profile",
     description:
       "Click here in order to sign in to your profile, or sign up for a new account. An account allows you save your plans",
-    imageUrl: process.env.PUBLIC_URL + "/assets/island2.jpg",
+    imageUrl: process.env.PUBLIC_URL + "/assets/profile.jpg",
     time: 1500,
   },
 ];
