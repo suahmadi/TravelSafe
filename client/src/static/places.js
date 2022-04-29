@@ -1,6 +1,7 @@
 const places = [
   {
-    title: "Plan A Trip",
+    placeNav: "/Explore",
+    title: "Explore",
     description:
       "Click here to plan your trips, and access information regarding Travel Covid Requirements and Restrictions",
     imageUrl: process.env.PUBLIC_URL + "/assets/island1.jpg",

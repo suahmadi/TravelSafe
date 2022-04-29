@@ -38,6 +38,89 @@ app.post("/create", (req, res) => {
   );
 });
 
+// only returns list of countries where everything is requried 
+app.get("/list-req", (req, res) => {
+  db.query(
+    "SELECT * FROM covidtravel_db.countries where vaccine_required=1 and testing_required = 1 and quarantine_required = 1",
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+// only returns list of countries where everything is not requried 
+app.get("/list-noreq", (req, res) => {
+  db.query(
+    "SELECT * FROM covidtravel_db.countries where vaccine_required=0 and testing_required = 0 and quarantine_required = 0",
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+//  returns list of all countries in DB
+app.get("/list-all", (req, res) => {
+  db.query(
+    "SELECT * FROM covidtravel_db.countries",
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+// returns list of all airlines in DB
+app.get("/list-all-airlines", (req, res) => {
+  db.query(
+    "SELECT * FROM covidtravel_db.airlines",
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+app.get("/list-noreq-airline", (req, res) => {
+  db.query(
+    "SELECT * FROM covidtravel_db.airlines where mask_required=0 and vaccine_required = 0",
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+app.get("/list-req-airline", (req, res) => {
+  db.query(
+    "SELECT * FROM covidtravel_db.airlines where mask_required=1 and vaccine_required = 1",
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+
 // select all users in the database.
 app.get("/users", (req, res) => {
   db.query("SELECT * FROM covidtravel_db.users", (err, result) => {
@@ -53,6 +136,40 @@ app.get("/users", (req, res) => {
 app.get("/clear-users", (req, res) => {
   db.query(
     "TRUNCATE TABLE covidtravel_db.users; ALTER TABLE covidtravel_db.users AUTO_INCREMENT = 0; DELETE FROM covidtravel_db.users",
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+
+// searchs the airline table based on the given inputs
+app.post("/search-airlines", (req, res) => {
+  const V = req.body.V;
+  const M = req.body.M;
+  db.query(
+    `SELECT * from covidtravel_db.airlines where vaccine_required=${V} and mask_required=${M}`, [V, M],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+// searchs the contries table based on the given inputs
+app.post("/search-countries", (req, res) => {
+  const V = req.body.V;
+  const T = req.body.T;
+  const Q = req.body.Q;
+  db.query(
+    `SELECT * from covidtravel_db.countries where vaccine_required=${V} and testing_required=${T} and quarantine_required=${Q}`, [V, T, Q],
     (err, result) => {
       if (err) {
         console.log(err);
