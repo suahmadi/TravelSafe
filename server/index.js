@@ -41,12 +41,12 @@ app.post("/create", (req, res) => {
 // only returns list of countries where everything is requried 
 app.get("/list-req", (req, res) => {
   db.query(
-    "SELECT * FROM covidtravel_db.countries where vaccine_required=1 and testing_required = 1 and quarantine_required = 1",
+    `CALL get_countries_req(?)`, true,
     (err, result) => {
       if (err) {
         console.log(err);
       } else {
-        res.send(result);
+        res.send(result[0]);
       }
     }
   );
@@ -55,12 +55,12 @@ app.get("/list-req", (req, res) => {
 // only returns list of countries where everything is not requried 
 app.get("/list-noreq", (req, res) => {
   db.query(
-    "SELECT * FROM covidtravel_db.countries where vaccine_required=0 and testing_required = 0 and quarantine_required = 0",
+    `CALL get_countries_noreq(?)`, true,
     (err, result) => {
       if (err) {
         console.log(err);
       } else {
-        res.send(result);
+        res.send(result[0]);
       }
     }
   );
@@ -69,12 +69,12 @@ app.get("/list-noreq", (req, res) => {
 //  returns list of all countries in DB
 app.get("/list-all", (req, res) => {
   db.query(
-    "SELECT * FROM covidtravel_db.countries",
+    `CALL get_all_countries(?)`, true,
     (err, result) => {
       if (err) {
         console.log(err);
       } else {
-        res.send(result);
+        res.send(result[0]);
       }
     }
   );
@@ -83,12 +83,12 @@ app.get("/list-all", (req, res) => {
 // returns list of all airlines in DB
 app.get("/list-all-airlines", (req, res) => {
   db.query(
-    "SELECT * FROM covidtravel_db.airlines",
+    `CALL get_all_airlines(?)`, true,
     (err, result) => {
       if (err) {
         console.log(err);
       } else {
-        res.send(result);
+        res.send(result[0]);
       }
     }
   );
@@ -96,12 +96,12 @@ app.get("/list-all-airlines", (req, res) => {
 
 app.get("/list-noreq-airline", (req, res) => {
   db.query(
-    "SELECT * FROM covidtravel_db.airlines where mask_required=0 and vaccine_required = 0",
+    `CALL get_all_noreq_airlines(?)`, true,
     (err, result) => {
       if (err) {
         console.log(err);
       } else {
-        res.send(result);
+        res.send(result[0]);
       }
     }
   );
@@ -109,12 +109,12 @@ app.get("/list-noreq-airline", (req, res) => {
 
 app.get("/list-req-airline", (req, res) => {
   db.query(
-    "SELECT * FROM covidtravel_db.airlines where mask_required=1 and vaccine_required = 1",
+    `CALL get_all_req_airlines(?)`, true,
     (err, result) => {
       if (err) {
         console.log(err);
       } else {
-        res.send(result);
+        res.send(result[0]);
       }
     }
   );
@@ -123,11 +123,11 @@ app.get("/list-req-airline", (req, res) => {
 
 // select all users in the database.
 app.get("/users", (req, res) => {
-  db.query("SELECT * FROM covidtravel_db.users", (err, result) => {
+  db.query(`CALL get_all_users(?)`, true, (err, result) => {
     if (err) {
       console.log(err);
     } else {
-      res.send(result);
+      res.send(result[0]);
     }
   });
 });
@@ -135,12 +135,12 @@ app.get("/users", (req, res) => {
 // delete all users in the database and reset the increment counter.
 app.get("/clear-users", (req, res) => {
   db.query(
-    "TRUNCATE TABLE covidtravel_db.users; ALTER TABLE covidtravel_db.users AUTO_INCREMENT = 0; DELETE FROM covidtravel_db.users",
+    `CALL delete_users_and_reset(?)`, true,
     (err, result) => {
       if (err) {
         console.log(err);
       } else {
-        res.send(result);
+        res.send(result[0]);
       }
     }
   );

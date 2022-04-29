@@ -89,6 +89,8 @@ function ExploreAirlines() {
                         <option name='NO'> NO </option>
                     </select>
                 </Grid>
+                <Button onClick={() => searchAirlines()}> SHOW AIRLINES </Button>
+
                 {airlines.map((val, _key) => {
                     console.log(val.vaccine_required)
                     if (val.mask_required == 1) {
@@ -110,9 +112,6 @@ function ExploreAirlines() {
                         </div>
                     );
                 })}
-
-                <Button onClick={() => searchAirlines()}> SHOW AIRLINES </Button>
-
 
             </div>
         </div>

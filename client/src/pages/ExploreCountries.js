@@ -110,6 +110,7 @@ function ExploreCountries() {
                     </select>
                 </Grid>
 
+                <Button onClick={() => searchCountries()}> SHOW COUNTREIS </Button>
                 {countries.map((val, _key) => {
                     if (val.vaccine_required == 1) {
                         val.vaccine_required = "YES"
@@ -131,13 +132,12 @@ function ExploreCountries() {
                             <h3> Country Name: {val.country_name} </h3>
                             <h3> Vaccine Required: {val.vaccine_required} </h3>
                             <h3> Testing Required: {val.testing_required} </h3>
-                            <h3> Risk Level: {val.risk_level} </h3>
                             <h3> Quarantine Required: {val.quarantine_required} </h3>
                         </div>
                     );
                 })}
 
-                <Button onClick={() => searchCountries()}> SHOW COUNTREIS </Button>
+
 
 
             </div>
